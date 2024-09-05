@@ -59,39 +59,49 @@ export default class Quiz extends Component {
         };
       });
     }
-    this.setState((prevState) => {
-      return {
-        currentQuestion: prevState.currentQuestion + 1,
-      };
-    });
+
+    if (this.state.currentQuestion >= this.state.questions.length - 1) {
+      this.setState({ finalScore: true });
+    } else {
+      this.setState((prevState) => {
+        return {
+          currentQuestion: prevState.currentQuestion + 1,
+        };
+      });
+    }
   }
   render() {
     return (
       <div className="app">
         {/* next div is for showing user score */}
-        {/* <div className='score-section'>
-              You scored 0 out of 4
-          </div> */}
-        <div className="question-section">
-          <div className="question-count">
-            <span>{this.state.currentQuestion + 1}</span>/{" "}
-            {this.state.questions.length}
+        {this.state.finalScore ? (
+          <div className="score-section">
+            You scored {this.state.score} out of {this.state.questions.length}
           </div>
-          <div className="question-text">
-            {this.state.questions[this.state.currentQuestion].questionText}
+        ) : (
+          <div>
+            <div className="question-section">
+              <div className="question-count">
+                <span>{this.state.currentQuestion + 1}</span>/
+                {this.state.questions.length}
+              </div>
+              <div className="question-text">
+                {this.state.questions[this.state.currentQuestion].questionText}
+              </div>
+            </div>
+            <div className="answer-section">
+              {this.state.questions[
+                this.state.currentQuestion
+              ].answerOptions.map((answer) => (
+                <button
+                  onClick={this.answerSelection.bind(this, answer.isCorrect)}
+                >
+                  {answer.answerText}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="answer-section">
-          {this.state.questions[this.state.currentQuestion].answerOptions.map(
-            (answer) => (
-              <button
-                onClick={this.answerSelection.bind(this, answer.isCorrect)}
-              >
-                {answer.answerText}
-              </button>
-            )
-          )}
-        </div>
+        )}
       </div>
     );
   }
