@@ -45,30 +45,35 @@ export default class Quiz extends Component {
         },
       ],
 
-   
+      score: 0,
+      currentQuestion: 0,
+      finalScore: false,
     };
   }
- 
+
   render() {
     return (
-      <div className='app'>
-      {/* next div is for showing user score */}
-          {/* <div className='score-section'>
+      <div className="app">
+        {/* next div is for showing user score */}
+        {/* <div className='score-section'>
               You scored 0 out of 4
           </div> */}
-              <div className='question-section'>
-                  <div className='question-count'>
-                      <span>Question 1</span>/ 4
-                  </div>
-                  <div className='question-text'>Where is Iran capital?</div>
-              </div>
-              <div className='answer-section'>
-                      <button>Tehran</button>
-                      <button>Tabriz</button>
-                      <button>Gorgan</button>
-                      <button>Shiraz</button>
-              </div>
-  </div>
+        <div className="question-section">
+          <div className="question-count">
+            <span>{this.state.currentQuestion + 1}</span>/{" "}
+            {this.state.questions.length}
+          </div>
+          <div className="question-text">
+            {this.state.questions[this.state.currentQuestion].questionText}
+          </div>
+        </div>
+        <div className="answer-section">
+          <button>Tehran</button>
+          <button>Tabriz</button>
+          <button>Gorgan</button>
+          <button>Shiraz</button>
+        </div>
+      </div>
     );
   }
 }
