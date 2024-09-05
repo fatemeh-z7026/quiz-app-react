@@ -50,7 +50,21 @@ export default class Quiz extends Component {
       finalScore: false,
     };
   }
-
+  answerSelection(answer) {
+    console.log(answer);
+    if (answer) {
+      this.setState((prevState) => {
+        return {
+          score: prevState.score + 1,
+        };
+      });
+    }
+    this.setState((prevState) => {
+      return {
+        currentQuestion: prevState.currentQuestion + 1,
+      };
+    });
+  }
   render() {
     return (
       <div className="app">
@@ -68,10 +82,15 @@ export default class Quiz extends Component {
           </div>
         </div>
         <div className="answer-section">
-          <button>Tehran</button>
-          <button>Tabriz</button>
-          <button>Gorgan</button>
-          <button>Shiraz</button>
+          {this.state.questions[this.state.currentQuestion].answerOptions.map(
+            (answer) => (
+              <button
+                onClick={this.answerSelection.bind(this, answer.isCorrect)}
+              >
+                {answer.answerText}
+              </button>
+            )
+          )}
         </div>
       </div>
     );
